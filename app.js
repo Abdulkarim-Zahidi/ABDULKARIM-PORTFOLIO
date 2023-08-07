@@ -36,3 +36,36 @@ galleryImages.forEach(image => {
 
 // Add click event listener to the full-screen overlay to close it
 fullscreenOverlay.addEventListener('click', hideFullscreenImage);
+
+
+  // Initialize Email.js with your User ID
+  emailjs.init("user_your_emailjs_user_id");
+
+  // Function to send the email
+  function sendEmail(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    const serviceID = "your_emailjs_service_id";
+    const templateID = "your_emailjs_template_id";
+
+    emailjs.sendForm(serviceID, templateID, formData).then(
+      function (response) {
+        console.log("Email sent successfully!", response);
+        // Show a success message to the user
+        alert("Message sent successfully!");
+        form.reset(); // Clear the form fields after successful submission
+      },
+      function (error) {
+        console.log("Failed to send the email.", error);
+        // Show an error message to the user
+        alert("Failed to send the message. Please try again later.");
+      }
+    );
+  }
+
+  // Add event listener to the form on submit
+  document.querySelector(".contact-form").addEventListener("submit", sendEmail);
+
